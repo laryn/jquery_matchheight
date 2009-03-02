@@ -1,0 +1,78 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  equalheights.admin.inc: n/a
+#  equalheights.module: n/a
+#  equalheights.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2009-02-25 14:36-0500\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: equalheights.admin.inc:14
+msgid "Add space separated list of CSS classes that you want to be of equal height "
+msgstr ""
+
+#: equalheights.admin.inc:15
+msgid "(one class per set of elements, no leading periods). "
+msgstr ""
+
+#: equalheights.admin.inc:16
+msgid "Optionally you can specify minimum and maximum height in pixels after a colon, separated by the comma "
+msgstr ""
+
+#: equalheights.admin.inc:17
+msgid "(the format is 'classname:minheight,maxheight'. "
+msgstr ""
+
+#: equalheights.admin.inc:18
+msgid "If you use only one number it will be treated as a minimum height. "
+msgstr ""
+
+#: equalheights.admin.inc:19
+msgid "For example, 'equalheight:100,500' will set the height of all elements with the class 'equalheight' "
+msgstr ""
+
+#: equalheights.admin.inc:20
+msgid "to at least 100px but no more than 500px. "
+msgstr ""
+
+#: equalheights.admin.inc:21
+msgid "(<a href=\"@about\">Read more about the plugin.</a>) "
+msgstr ""
+
+#: equalheights.admin.inc:24
+msgid "CSS Classes"
+msgstr ""
+
+#: equalheights.module:23
+msgid "Implements a jQuery plugin that makes the height of the elements equal."
+msgstr ""
+
+#: equalheights.module:55 equalheights.info:0
+msgid "Equal Heights"
+msgstr ""
+
+#: equalheights.module:56
+msgid "Configure elements with equal heights."
+msgstr ""
+
+#: equalheights.module:0
+msgid "equalheights"
+msgstr ""
+
+#: equalheights.info:0
+msgid "Adds a jQuery plugin to equalize heights for sets of elements."
+msgstr ""
+
