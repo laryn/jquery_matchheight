@@ -25,5 +25,12 @@ function equalheights_admin() {
     '#default_value' => variable_get('equalheights_css_classes', ''),
     '#description' => $description,
   );
+  $form['equalheights_overflow'] = array(
+      '#type' => 'radios',
+      '#title' => t('Overflow property'),
+      '#default_value' => variable_get('equalheights_overflow', 'visible'),
+      '#options' => array('auto' => t('auto'), 'visible' => t('visible'), 'hidden' => t('hidden')),
+      '#description' => t('Set overflow value for the selected elements'),
+  );
   return system_settings_form($form);
 } // function equalheights_admin
