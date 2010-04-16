@@ -1,4 +1,6 @@
 ; $Id$
 name = Equal Heights
 description = "Adds a jQuery plugin to equalize heights for sets of elements."
-core = 6.x
+core = 7.x
+files[] = equalheights.admin.inc
+files[] = equalheights.module

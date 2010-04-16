@@ -13,7 +13,7 @@
  * http://www.cssnewbie.com/equalheights-jquery-plugin/
  */
 /**
-* Implementation of hook_help().
+* Implements hook_help().
 */
 function equalheights_help($path = '', $arg = NULL) {
   $output = '';
@@ -27,7 +27,7 @@ function equalheights_help($path = '', $arg = NULL) {
 } // function equalheights_help
 
 /**
- * Implementation of hook_init().
+ * Implements hook_init().
  */
 function equalheights_init() {
   $equalheightsclasses = variable_get('equalheights_css_classes', '');
@@ -35,20 +35,30 @@ function equalheights_init() {
   if (!empty($equalheightsclasses)) {
     // We use preg_split in case there're more spaces than one between classes
     $classes = preg_split("/\s+/", $equalheightsclasses);
+    // Add the plugin file
     $jqueryequalheightsjs = drupal_get_path('module', 'equalheights') .'/jquery.equalheights.js';
-    drupal_add_js($jqueryequalheightsjs, 'module');
-    $js = "$(document).ready(function(){";
+    drupal_add_js($jqueryequalheightsjs);
+    $js = "(function($){";
+    $js .= "$(document).ready(function() {";
     foreach ($classes as $class) {
-      list($class, $height) = explode(":", $class);
-      $js .= "$('.$class').equalHeights($height).css('overflow', '$overflow_value');";
+      // Check if there's a ":" inside the setting string to avoid notices
+      if (strpos($class, ':') !== false ) {
+        list($class, $height) = explode(":", $class);
+      }
+      $js .= "$('.$class').equalHeights(";
+      if (!empty($height)) {
+        $js .= "$height";
+      }
+      // Set the overflow value
+      $js .= ").css('overflow', '$overflow_value');";
+      }
     }
-    $js .= "});";
+    $js .= "});})(jQuery);";
     drupal_add_js($js, 'inline');    
-  }
-} // function equalheights_init
+  } // function equalheights_init
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function equalheights_menu() {
   $items = array();
