@@ -19,7 +19,7 @@ function equalheights_help($path = '', $arg = NULL) {
   $output = '';
   switch ($path) {
     case 'admin/help#equalheights':
-    case 'admin/settings/equalheights':
+    case 'admin/config/equalheights':
       $output = '<p>'.  t("Implements a jQuery plugin that makes the height of the elements equal."). '</p>';
       break;
   }
@@ -62,7 +62,7 @@ function equalheights_init() {
  */
 function equalheights_menu() {
   $items = array();
-  $items['admin/appearance/equalheights'] = array(
+  $items['admin/config/equalheights'] = array(
     'title' => 'Equal Heights',
     'description' => 'Configure elements with equal heights.',
     'access arguments' => array('administer site configuration'),
