@@ -3,16 +3,16 @@
 # Russian translation of Drupal (general)
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 # Generated from files:
-#  equalheights.admin.inc: n/a
-#  equalheights.module: n/a
-#  equalheights.info: n/a
+#  equalheights.admin.inc,v 1.1.2.1 2010/04/15 18:15:14 drupallibrarian
+#  equalheights.module,v 1.1.2.1 2010/04/15 18:15:14 drupallibrarian
+#  equalheights.info,v 1.1 2009/03/02 02:19:50 drupallibrarian
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2009-02-25 14:36-0500\n"
-"PO-Revision-Date: 2009-02-25 14:36-0500\n"
+"POT-Creation-Date: 2010-04-15 23:25-0400\n"
+"PO-Revision-Date: 2010-04-15 23:25-0400\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Russian <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -22,27 +22,44 @@ msgstr ""
 
 #: equalheights.admin.inc:14
 msgid "Add space separated list of CSS classes that you want to be of equal height "
-msgstr "Добавьте через пробел список классов CSS, которые вы хотите сделать одинаковыми по высоте"
+msgstr ""
+"Добавьте через пробел список классов "
+"CSS, которые вы хотите сделать "
+"одинаковыми по высоте"
 
 #: equalheights.admin.inc:15
 msgid "(one class per set of elements, no leading periods). "
-msgstr "(один класс для каждого набора элементов, без начальной точки "
+msgstr ""
+"(один класс для каждого набора "
+"элементов, без начальной точки "
 
 #: equalheights.admin.inc:16
 msgid "Optionally you can specify minimum and maximum height in pixels after a colon, separated by the comma "
-msgstr "Вы можете дополнительно указать минимальную и максимальную высоту после двоеточия, разделенные запятой "
+msgstr ""
+"Вы можете дополнительно указать "
+"минимальную и максимальную высоту "
+"после двоеточия, разделенные запятой "
 
 #: equalheights.admin.inc:17
 msgid "(the format is 'classname:minheight,maxheight'. "
-msgstr "(в формате 'название_класса:минвысота:максвысота' "
+msgstr ""
+"(в формате "
+"'название_класса:минвысота:максвысота' "
+""
 
 #: equalheights.admin.inc:18
 msgid "If you use only one number it will be treated as a minimum height. "
-msgstr "Если будет указано только одно число, оно будет считать минимальной высотой "
+msgstr ""
+"Если будет указано только одно число, "
+"оно будет считать минимальной высотой "
+""
 
 #: equalheights.admin.inc:19
 msgid "For example, 'equalheight:100,500' will set the height of all elements with the class 'equalheight' "
-msgstr "Например, 'equalheight:100,500' установит высоту всех элементов с классом 'equalheight' "
+msgstr ""
+"Например, 'equalheight:100,500' установит "
+"высоту всех элементов с классом "
+"'equalheight' "
 
 #: equalheights.admin.inc:20
 msgid "to at least 100px but no more than 500px. "
@@ -56,22 +73,47 @@ msgstr "(<a href=\"@about\">Подробнее о плагине.</a>) "
 msgid "CSS Classes"
 msgstr "Классы CSS"
 
+#: equalheights.admin.inc:30
+msgid "Overflow property"
+msgstr "Значение overflow"
+
+#: equalheights.admin.inc:32
+msgid "auto"
+msgstr "auto"
+
+#: equalheights.admin.inc:32
+msgid "visible"
+msgstr "visible"
+
+#: equalheights.admin.inc:32
+msgid "hidden"
+msgstr "hidden"
+
+#: equalheights.admin.inc:33
+msgid "Set overflow value for the selected elements"
+msgstr "Укажите значение overflow для выбранных элементов"
+
 #: equalheights.module:23
 msgid "Implements a jQuery plugin that makes the height of the elements equal."
-msgstr "Использует плагин jQuery, который устанавливает одинаковую высоту для элементов."
+msgstr ""
+"Использует плагин jQuery, который "
+"устанавливает одинаковую высоту для "
+"элементов."
 
-#: equalheights.module:55 equalheights.info:0
+#: equalheights.module:56 equalheights.info:0
 msgid "Equal Heights"
 msgstr ""
 
-#: equalheights.module:56
+#: equalheights.module:57
 msgid "Configure elements with equal heights."
-msgstr "Настройте элементы с одинаковой высотой"
-
-#: equalheights.module:0
-msgid "equalheights"
 msgstr ""
+"Настройте элементы с одинаковой "
+"высотой"
 
 #: equalheights.info:0
 msgid "Adds a jQuery plugin to equalize heights for sets of elements."
-msgstr "Добавляет плагин jQuery, который устанавливает одинаковую высоту для наборов элементов."
+msgstr ""
+"Добавляет плагин jQuery, который "
+"устанавливает одинаковую высоту для "
+"наборов элементов."
+
