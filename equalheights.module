@@ -1,5 +1,4 @@
 <?php
-// $Id$
 /**
  * @file
  * Adds a jQuery plugin that sets the elements you specify to the same height.

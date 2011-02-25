@@ -1,4 +1,3 @@
-// $Id$
 /**
  * Equal Heights Plugin
  * Equalize the heights of elements. Great for columns or any elements
