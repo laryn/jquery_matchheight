@@ -1,5 +1,6 @@
 name = Equal Heights
 description = "Adds a jQuery plugin to equalize heights for sets of elements."
 core = 7.x
+configure = admin/config/content/equalheights
 files[] = equalheights.admin.inc
 files[] = equalheights.module

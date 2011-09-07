@@ -30,38 +30,40 @@ function equalheights_help($path = '', $arg = NULL) {
  */
 function equalheights_init() {
   $equalheightsclasses = variable_get('equalheights_css_classes', '');
-  $overflow_value = variable_get('equalheights_overflow', 'visible');
   if (!empty($equalheightsclasses)) {
     // We use preg_split in case there're more spaces than one between classes
-    $classes = preg_split("/\s+/", $equalheightsclasses);
+    $classes = preg_split("/\n\s+/", $equalheightsclasses);
     // Add the plugin file
     $jqueryequalheightsjs = drupal_get_path('module', 'equalheights') .'/jquery.equalheights.js';
     drupal_add_js($jqueryequalheightsjs);
-    $js = "(function($){";
-    $js .= "$(document).ready(function() {";
+    $js = '(function($){';
+    $js .= '$(document).ready(function() {';
     foreach ($classes as $class) {
-      // Check if there's a ":" inside the setting string to avoid notices
-      if (strpos($class, ':') !== false ) {
-        list($class, $height) = explode(":", $class);
-      }
-      $js .= "$('.$class').equalHeights(";
-      if (!empty($height)) {
-        $js .= "$height";
-      }
-      // Set the overflow value
-      $js .= ").css('overflow', '$overflow_value');";
+      if (!empty($class)) {
+        // Check if there's a ":" inside the setting string to avoid notices
+        if (strpos($class, ':') !== false ) {
+          list($class, $height) = explode(":", $class);
+        }
+        $js .= "\$('$class').equalHeights(";
+        if (!empty($height)) {
+          $js .= "$height";
+        }
+        // Set the overflow value
+        $overflow_value = variable_get('equalheights_overflow', 'visible');
+        $js .= ").css('overflow', '$overflow_value');";
       }
     }
-    $js .= "});})(jQuery);";
-    drupal_add_js($js, 'inline');    
-  } // function equalheights_init
+    $js .= '});})(jQuery);';
+    drupal_add_js($js, 'inline');
+  }
+} // function equalheights_init
 
 /**
  * Implements hook_menu().
  */
 function equalheights_menu() {
   $items = array();
-  $items['admin/config/equalheights'] = array(
+  $items['admin/config/content/equalheights'] = array(
     'title' => 'Equal Heights',
     'description' => 'Configure elements with equal heights.',
     'access arguments' => array('administer site configuration'),
