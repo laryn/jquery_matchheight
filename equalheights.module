@@ -32,7 +32,7 @@ function equalheights_init() {
   $equalheightsclasses = variable_get('equalheights_css_classes', '');
   if (!empty($equalheightsclasses)) {
     // We use preg_split in case there're more spaces than one between classes
-    $classes = preg_split("/\n\s+/", $equalheightsclasses);
+    $classes = preg_split("/\n\s*/", $equalheightsclasses);
     // Add the plugin file
     $jqueryequalheightsjs = drupal_get_path('module', 'equalheights') .'/jquery.equalheights.js';
     drupal_add_js($jqueryequalheightsjs);
