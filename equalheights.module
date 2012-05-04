@@ -63,7 +63,7 @@ function equalheights_init() {
  */
 function equalheights_menu() {
   $items = array();
-  $items['admin/config/content/equalheights'] = array(
+  $items['admin/config/development/equalheights'] = array(
     'title' => 'Equal Heights',
     'description' => 'Configure elements with equal heights.',
     'access arguments' => array('administer site configuration'),
