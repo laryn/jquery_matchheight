@@ -29,6 +29,7 @@ function equalheights_help($path = '', $arg = NULL) {
  * Implements hook_init().
  */
 function equalheights_init() {
+static $complete = FALSE;
   $equalheightsclasses = variable_get('equalheights_css_classes', '');
   if (!empty($equalheightsclasses)) {
     $options = array();
@@ -47,9 +48,10 @@ function equalheights_init() {
 		  } else {
 			$options['eqClass'][$class]['minheight'] = $height;
 		  }
-		  dpm($options);
+		
         } else {
-		$options['eqClass'][$class] = '';
+		// No min/max height defined
+			$options['eqClass'][$class] = '';
 		}
         
         // Set the overflow value
@@ -58,9 +60,12 @@ function equalheights_init() {
 
 	
 
-	drupal_add_js(array('equalHeightsModule' => $options), 'setting');
   }
   }
+  	if (!$complete) {
+	  drupal_add_js(array('equalHeightsModule' => $options), 'setting');
+	  $complete = TRUE;
+	}
   }
 } // function equalheights_init
 
