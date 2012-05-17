@@ -26,46 +26,60 @@ function equalheights_help($path = '', $arg = NULL) {
 } // function equalheights_help
 
 /**
+ * Implements hook_library().
+ */
+function equalheights_library() {
+  $libraries['jquery-equalheights'] = array(
+    'title' => "Equalheights jQuery",
+    'website' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/',
+    'version' => '1.0',
+    'js' => array(
+      drupal_get_path('module', 'equalheights') . '/jquery.equalheights.js' => array(),
+    ),
+  );
+  return $libraries;
+}
+
+/**
  * Implements hook_init().
  */
 function equalheights_init() {
-static $complete = FALSE;
+  // Adding jquery.equalheights.js
+  drupal_add_library('equalheights', 'jquery-equalheights', TRUE);
+
   $equalheightsclasses = variable_get('equalheights_css_classes', '');
   if (!empty($equalheightsclasses)) {
     $options = array();
     // We use preg_split in case there're more spaces than one between classes
-    $classes = preg_split("/\R\s*/", $equalheightsclasses);	
+    $classes = preg_split("/\R\s*/", $equalheightsclasses);
     foreach ($classes as $class) {
       if (!empty($class)) {
-	  
         // Check if there's a ":" inside the setting string to avoid notices
         if (strpos($class, ':') !== false ) {
-          list($class, $height) = explode(":", $class);		  
-		  if (!empty($height) && strpos($height, ',') !== false) {
-			list($minheight, $maxheight) = explode(",", $height);
-			$options['eqClass'][$class]['minheight'] = $minheight;
-			$options['eqClass'][$class]['maxheight'] = $maxheight;
-		  } else {
-			$options['eqClass'][$class]['minheight'] = $height;
-		  }
-		
+          list($class, $height) = explode(":", $class);
+          if (!empty($height) && strpos($height, ',') !== false) {
+            list($minheight, $maxheight) = explode(",", $height);
+            $options['eqClass'][$class]['minheight'] = $minheight;
+            $options['eqClass'][$class]['maxheight'] = $maxheight;
+           } else {
+            $options['eqClass'][$class]['minheight'] = $height;
+            }
         } else {
-		// No min/max height defined
-			$options['eqClass'][$class] = '';
-		}
-        
-        // Set the overflow value
-        $overflow_value = variable_get('equalheights_overflow', 'visible');
-		$options['overflow'] = $overflow_value;
+            // No min/max height defined
+            $options['eqClass'][$class] = '';
+		    }
+      }
+    }
+    // Set the overflow value
+    $overflow_value = variable_get('equalheights_overflow', 'visible');
+	  $options['overflow'] = $overflow_value;
 
-	
-
-  }
-  }
-  	if (!$complete) {
-	  drupal_add_js(array('equalHeightsModule' => $options), 'setting');
-	  $complete = TRUE;
-	}
+	  // Only load settings once
+    static $loaded = FALSE;
+  	if (!$loaded) {
+      drupal_add_js(array('equalHeightsModule' => $options), 'setting');
+      $loaded = TRUE;
+	  }
   }
 } // function equalheights_init
 
