@@ -31,30 +31,36 @@ function equalheights_help($path = '', $arg = NULL) {
 function equalheights_init() {
   $equalheightsclasses = variable_get('equalheights_css_classes', '');
   if (!empty($equalheightsclasses)) {
+    $options = array();
     // We use preg_split in case there're more spaces than one between classes
-    $classes = preg_split("/\R\s*/", $equalheightsclasses);
-    // Add the plugin file
-    $jqueryequalheightsjs = drupal_get_path('module', 'equalheights') .'/jquery.equalheights.js';
-    drupal_add_js($jqueryequalheightsjs);
-    $js = '(function($){';
-    $js .= '$(document).ready(function() {';
+    $classes = preg_split("/\R\s*/", $equalheightsclasses);	
     foreach ($classes as $class) {
       if (!empty($class)) {
+	  
         // Check if there's a ":" inside the setting string to avoid notices
         if (strpos($class, ':') !== false ) {
-          list($class, $height) = explode(":", $class);
-        }
-        $js .= "\$('$class').equalHeights(";
-        if (!empty($height)) {
-          $js .= "$height";
-        }
+          list($class, $height) = explode(":", $class);		  
+		  if (!empty($height) && strpos($height, ',') !== false) {
+			list($minheight, $maxheight) = explode(",", $height);
+			$options['eqClass'][$class]['minheight'] = $minheight;
+			$options['eqClass'][$class]['maxheight'] = $maxheight;
+		  } else {
+			$options['eqClass'][$class]['minheight'] = $height;
+		  }
+		  dpm($options);
+        } else {
+		$options['eqClass'][$class] = '';
+		}
+        
         // Set the overflow value
         $overflow_value = variable_get('equalheights_overflow', 'visible');
-        $js .= ").css('overflow', '$overflow_value');";
-      }
-    }
-    $js .= '});})(jQuery);';
-    drupal_add_js($js, 'inline');
+		$options['overflow'] = $overflow_value;
+
+	
+
+	drupal_add_js(array('equalHeightsModule' => $options), 'setting');
+  }
+  }
   }
 } // function equalheights_init
 
