@@ -13,7 +13,7 @@ function equalheights_admin() {
   $description = t('Add list of of CSS classes that you want to be of equal height ');
   $description .= t(' each on a new line (one class per set of elements). ');
   $description .= t('Optionally you can specify minimum and maximum height in pixels after a colon, separated by the comma ');
-  $description .= t('(the format is \'classname:minheight,maxheight\'. ');
+  $description .= t('(the format is \'.classname:minheight,maxheight\'. ');
   $description .= t('If you use only one number it will be treated as a minimum height. ');
   $description .= t('For example, \'.equalheight:100,500\' will set the height of all elements with the class \'equalheight\' ');
   $description .= t('to at least 100px but no more than 500px. ');
