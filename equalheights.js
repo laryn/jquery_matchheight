@@ -1,10 +1,10 @@
 (function($) {
 	Drupal.behaviors.equalHeightsModule = {
 	  attach: function (context, settings) {
-	  var eqClass = Drupal.settings.equalHeightsModule.eqClass;
-	  var overflow = Drupal.settings.equalHeightsModule.overflow;
-	    $.each(eqClass, function(eqClass, height) {		
-		  $(eqClass).equalHeights(height.minheight, height.maxheight).css('overflow', overflow)});	    
+	  var eqClass = Drupal.settings.equalHeightsModule;
+	  //var overflow = Drupal.settings.equalHeightsModule.overflow;
+	    $.each(eqClass, function(eqClass, setting) {
+		  $('.' + setting.class).equalHeights(setting.minheight, setting.maxheight).css('overflow', setting.overflow)});
 	  }
-	}	
+	}
 })(jQuery);

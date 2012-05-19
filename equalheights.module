@@ -19,7 +19,7 @@ function equalheights_help($path = '', $arg = NULL) {
   switch ($path) {
     case 'admin/help#equalheights':
     case 'admin/config/equalheights':
-      $output = '<p>'.  t("Implements a jQuery plugin that makes the height of the elements equal."). '</p>';
+      $output = '<p>' .  t("Implements a jQuery plugin that makes the height of the elements equal.") . '</p>';
       break;
   }
   return $output;
@@ -44,40 +44,15 @@ function equalheights_library() {
  * Implements hook_init().
  */
 function equalheights_init() {
-  // Adding jquery.equalheights.js
+  // Adding jquery.equalheights.js as a library
   drupal_add_library('equalheights', 'jquery-equalheights', TRUE);
 
-  $equalheightsclasses = variable_get('equalheights_css_classes', '');
+  $equalheightsclasses = variable_get('equalheights_css_classes', array());
   if (!empty($equalheightsclasses)) {
-    $options = array();
-    // We use preg_split in case there're more spaces than one between classes
-    $classes = preg_split("/\R\s*/", $equalheightsclasses);
-    foreach ($classes as $class) {
-      if (!empty($class)) {
-        // Check if there's a ":" inside the setting string to avoid notices
-        if (strpos($class, ':') !== false ) {
-          list($class, $height) = explode(":", $class);
-          if (!empty($height) && strpos($height, ',') !== false) {
-            list($minheight, $maxheight) = explode(",", $height);
-            $options['eqClass'][$class]['minheight'] = $minheight;
-            $options['eqClass'][$class]['maxheight'] = $maxheight;
-           } else {
-            $options['eqClass'][$class]['minheight'] = $height;
-            }
-        } else {
-            // No min/max height defined
-            $options['eqClass'][$class] = '';
-		    }
-      }
-    }
-    // Set the overflow value
-    $overflow_value = variable_get('equalheights_overflow', 'visible');
-	  $options['overflow'] = $overflow_value;
-
 	  // Only load settings once
     static $loaded = FALSE;
   	if (!$loaded) {
-      drupal_add_js(array('equalHeightsModule' => $options), 'setting');
+      drupal_add_js(array('equalHeightsModule' => $equalheightsclasses), 'setting');
       $loaded = TRUE;
 	  }
   }
@@ -98,3 +73,19 @@ function equalheights_menu() {
   );
   return $items;
 } // function equalheights_menu
+
+/*
+ * Implements hook_theme().
+ */
+function equalheights_theme() {
+  return array(
+    'equalheights_classes' => array(
+      'render element' => 'form',
+      'file' => 'equalheights.admin.inc',
+    )
+  );
+}
+
+//function equalheights_js_alter(&$javascript) {
+//  dpm($javascript);
+//}
