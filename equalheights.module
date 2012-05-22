@@ -18,8 +18,11 @@ function equalheights_help($path = '', $arg = NULL) {
   $output = '';
   switch ($path) {
     case 'admin/help#equalheights':
-    case 'admin/config/equalheights':
+    case 'admin/config/development/equalheights':
       $output = '<p>' .  t("Implements a jQuery plugin that makes the height of the elements equal.") . '</p>';
+      $output  .= t('Add CSS classes that you need to be of equal height, without a leading period (\'.\').<br />');
+      $output .= t('You can optionally set minimum and maximum height, overflow value.&nbsp;');
+      $output .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/'));
       break;
   }
   return $output;
@@ -62,6 +65,10 @@ function equalheights_init() {
  * Implements hook_menu().
  */
 function equalheights_menu() {
+  $description = t('Add CSS classes that you need to be of equal height, without a leading period (\'.\').<br />');
+  $description .= t('You can optionally set minimum and maximum height, overflow value.&nbsp;');
+  $description .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/'));
+
   $items = array();
   $items['admin/config/development/equalheights'] = array(
     'title' => 'Equal Heights',

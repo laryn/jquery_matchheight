@@ -11,17 +11,13 @@
 
 function equalheights_admin($form, $form_state) {
   $form = array();
-  $description = t('Add CSS classes that you need to be of equal height, without a leading period (\'.\').<br />');
-  $description .= t('You can optionally set minimum and maximum height, overflow value.&nbsp;');
-  $description .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/'));
 
   $form['equalheights_classes'] = array(
     '#tree' => TRUE,
     '#theme' => 'equalheights_classes',
-    '#description' => $description,
   );
 
-  // See how many string rows there should be.
+  // See how many rows there should be.
 
   $classes = variable_get("equalheights_css_classes", array());
   $rows_count = 0;
@@ -171,8 +167,8 @@ function theme_equalheights_classes($variables) {
     array('data' => t('Overflow'), 'title' => t('Overflow value')),
     array('data' => t('Delete'), 'title' => t('Delete class.')),
   );
-  $output = $form['#description'];
-  $output .= theme('table', array(
+
+  $output = theme('table', array(
    'header' => $header,
     'rows' => $rows,
     'attributes' => array('id' => 'equalheights_wrapper'),
