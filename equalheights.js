@@ -5,7 +5,7 @@
     if (eqClass) {
 	  //var overflow = Drupal.settings.equalHeightsModule.overflow;
 	    $.each(eqClass, function(eqClass, setting) {
-		  $('.' + setting.class).equalHeights(setting.minheight, setting.maxheight).css('overflow', setting.overflow)});
+		  $('.' + setting.elClass).equalHeights(setting.minheight, setting.maxheight).css('overflow', setting.overflow)});
 	  }
     }
 	}
