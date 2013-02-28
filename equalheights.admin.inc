@@ -36,11 +36,11 @@ function equalheights_admin($form, $form_state) {
       $form['equalheights_classes'][$index] = equalheights_settings_fields();
     }
   }
-  $form['actions']['more'] = array(
+  $form['more'] = array(
     '#type' => 'submit',
     '#value' => t('Add row'),
     '#description' => t('Add a new row'),
-    '#weight' => 1,
+    //'#weight' => 0,
     '#submit' => array('equalheights_more_submit'),
     '#ajax' => array(
       'callback' => 'equalheights_ajax',
@@ -49,10 +49,17 @@ function equalheights_admin($form, $form_state) {
       'effect' => 'none',
     ),
   );
-  $form['actions']['save'] = array(
+
+  $form['imagesloaded'] = array(
+    '#type' => 'checkbox',
+    '#description' => t('Load the minified version of the imagesloaded plugin for performance.'),
+    '#default_value' => variable_get('equalheights_imagesloaded_min', TRUE),
+    '#title' => t('Enable minified imagesloaded plugin'),
+  );
+  $form['save'] = array(
     '#type' => 'submit',
     '#value' => t('Save configuration'),
-    '#weight' => 2,
+
   );
 
   return $form;
@@ -73,6 +80,7 @@ function equalheights_admin_validate($form, &$form_state) {
 
 function equalheights_admin_submit($form, &$form_state) {
   $settings = array();
+
   foreach ($form_state['values']['equalheights_classes'] as $i => $class) {
     if (!empty($class['elClass']) && $class['delete'] == 0) {
       // if only maxheight is set, make minheight equal to '0'
@@ -88,6 +96,7 @@ function equalheights_admin_submit($form, &$form_state) {
     }
   }
   variable_set('equalheights_css_classes', $settings);
+  variable_set('equalheights_imagesloaded_min', $form_state['values']['imagesloaded']);
   drupal_set_message(t('Settings have been set.'));
 }
 
@@ -137,7 +146,6 @@ function equalheights_settings_fields($elClass = '', $minheight = '', $maxheight
       '#title' => t('Overflow value if the content taller than the max height'),
     ),
   );
-
   return $form;
 }
 

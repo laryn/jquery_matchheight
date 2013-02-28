@@ -19,8 +19,8 @@ function equalheights_help($path = '', $arg = NULL) {
   switch ($path) {
     case 'admin/help#equalheights':
     case 'admin/config/development/equalheights':
-      $output = '<p>' .  t("Implements a jQuery plugin that makes the height of the elements equal.") . '</p>';
-      $output  .= t('Add CSS classes that you need to be of equal height, without a leading period (\'.\').<br />');
+      $output = '<p>' . t("Implements a jQuery plugin that makes the height of the elements equal.") . '</p>';
+      $output .= t('Add CSS classes that you need to be of equal height, without a leading period (\'.\') . <br />');
       $output .= t('You can optionally set minimum and maximum height, overflow value.&nbsp;');
       $output .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/'));
       break;
@@ -30,6 +30,8 @@ function equalheights_help($path = '', $arg = NULL) {
 
 /**
  * Implements hook_library().
+ *
+ * For the file packaged with the module.
  */
 function equalheights_library() {
   $libraries['jquery-equalheights'] = array(
@@ -42,6 +44,48 @@ function equalheights_library() {
   );
   return $libraries;
 }
+/**
+ * Implements hook_libraries_info().
+ *
+ * For defining external libraries.
+ */
+function equalheights_libraries_info() {
+  $libraries['imagesloaded'] = array(
+    'name' => 'jquery imagesloaded',
+    'vendor url' => 'https://github.com/desandro/imagesloaded',
+    'download url' => 'https://github.com/desandro/imagesloaded',
+    //'path' => 'imagesloaded',
+    // 2.1.1
+    'version arguments' => array(
+      'file' => 'jquery.imagesloaded.js',
+      'pattern' => '@plugin v([0-9\.a-z]+)@',
+      'lines' => 5,
+
+    ),
+    'files' => array(
+      'js' => array(
+        'jquery.imagesloaded.min.js',
+      ),
+    ),
+    'variants' => array(
+      'minified' => array(
+        'files' => array(
+          'js' => array(
+            'jquery.imagesloaded.min.js',
+          ),
+        ),
+      ),
+      'source' => array(
+        'files' => array(
+          'js' => array(
+            'jquery.imagesloaded.js',
+          ),
+        ),
+      ),
+    ),
+  );
+  return $libraries;
+}
 
 /**
  * Implements hook_init().
@@ -49,15 +93,11 @@ function equalheights_library() {
 function equalheights_init() {
   // Adding jquery.equalheights.js as a library
   drupal_add_library('equalheights', 'jquery-equalheights', TRUE);
-
   $equalheightsclasses = variable_get('equalheights_css_classes', array());
   if (!empty($equalheightsclasses)) {
-	  // Only load settings once
-    static $loaded = FALSE;
-  	if (!$loaded) {
-      drupal_add_js(array('equalHeightsModule' => $equalheightsclasses), 'setting');
-      $loaded = TRUE;
-	  }
+    drupal_add_library('equalheights', 'jquery-equalheights', TRUE);
+    equalheights_load_libraries($equalheightsclasses);
+
   }
 } // function equalheights_init
 
@@ -93,6 +133,25 @@ function equalheights_theme() {
   );
 }
 
-//function equalheights_js_alter(&$javascript) {
-//  dpm($javascript);
-//}
+function equalheights_load_libraries($equalheightsclasses) {
+  // Determine which variant of the script to load depending on the config settings.
+  if (variable_get('equalheights_imagesloaded_min')) {
+    $variant = 'minified';
+  }
+  else {
+    $variant = 'source';
+  }
+  $library = libraries_load('imagesloaded', $variant);
+  if ($library && !empty($library['loaded'])) {
+    // Only load settings once
+    static $loaded = FALSE;
+    if (!$loaded) {
+      drupal_add_js(array('equalHeightsModule' => $equalheightsclasses), 'setting');
+      $loaded = TRUE;
+    }
+  }
+  else {
+    $message = t('The imagesloaded library was not found! Please following the instructions from the README.tx to get the plugin.');
+    drupal_set_message($message, $type='error');
+  }
+}

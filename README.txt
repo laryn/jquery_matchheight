@@ -12,6 +12,11 @@ http://www.cssnewbie.com/equalheights-jquery-plugin/
 
 Installation
 ------------
+
+Before installing equalheights module, download imagesloaded plugin from https://github.com/desandro/imagesloaded.
+You need two files: jquery.imagesloaded.js and jquery.imagesloaded.min.js. They should be copied to sites/all/libraries/imagesloaded.
+You can also use git to clone the repository from the github.
+
 Copy the module to the directory where you store contributed modules and enable
 it on the admin modules page. Go to admin/config/development/equalheights and
 add the classes for the elements that should have the same height (optionally,

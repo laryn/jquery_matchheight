@@ -6,3 +6,5 @@ files[] = equalheights.admin.inc
 files[] = equalheights.module
 
 scripts[] = equalheights.js
+
+dependencies[] = libraries
