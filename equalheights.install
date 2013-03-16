@@ -18,20 +18,20 @@ function equalheights_uninstall() {
  * Removes no longer used variables
  */
 function equalheights_update_7000() {
-  // first save overflow setting
+  // First save overflow setting.
   $overflow = variable_get('equalheights_overflow', 'auto');
-  // We no longer use a separate variable for overflow, delete it now
+  // We no longer use a separate variable for overflow, delete it now.
   db_delete('variable')
     ->condition('name', 'equalheights_overflow')
     ->execute();
 
-  // Try to transform string(s) into arrays
+  // Try to transform string(s) into arrays.
   $equalheightsclasses = variable_get('equalheights_css_classes', '');
   $classes = preg_split("/\R\s*/", $equalheightsclasses);
   $settings = array();
   foreach ($classes as $class) {
     if (!empty($class)) {
-      if (strpos($class, ':') !== FALSE ) {
+      if (strpos($class, ':') !== FALSE) {
         list($class, $height) = explode(":", $class);
       }
       if (!empty($height)) {

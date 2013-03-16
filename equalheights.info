@@ -7,4 +7,4 @@ files[] = equalheights.module
 
 scripts[] = equalheights.js
 
-dependencies[] = libraries
+dependencies[] = libraries (2.x)

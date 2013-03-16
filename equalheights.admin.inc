@@ -6,7 +6,7 @@
  */
 
 /**
- * Administration settings page
+ * Administration settings page.
  */
 
 function equalheights_admin($form, $form_state) {
@@ -18,7 +18,6 @@ function equalheights_admin($form, $form_state) {
   );
 
   // See how many rows there should be.
-
   $classes = variable_get("equalheights_css_classes", array());
   $rows_count = 0;
   if (isset($form_state['rows_count'])) {
@@ -40,7 +39,6 @@ function equalheights_admin($form, $form_state) {
     '#type' => 'submit',
     '#value' => t('Add row'),
     '#description' => t('Add a new row'),
-    //'#weight' => 0,
     '#submit' => array('equalheights_more_submit'),
     '#ajax' => array(
       'callback' => 'equalheights_ajax',
@@ -69,7 +67,7 @@ function equalheights_admin_validate($form, &$form_state) {
   foreach ($form_state['values']['equalheights_classes'] as $i => $class) {
     if (!empty($class['elClass'])) {
       if (!empty($class['minheight']) && !is_numeric($class['minheight'])) {
-          form_set_error('', t('Min height must be a number.'));
+        form_set_error('', t('Min height must be a number.'));
       }
       elseif (!empty($class['maxheight']) && !is_numeric($class['maxheight'])) {
         form_set_error('', t('Max height must be a number.'));
@@ -83,7 +81,7 @@ function equalheights_admin_submit($form, &$form_state) {
 
   foreach ($form_state['values']['equalheights_classes'] as $i => $class) {
     if (!empty($class['elClass']) && $class['delete'] == 0) {
-      // if only maxheight is set, make minheight equal to '0'
+      // If only maxheight is set, make minheight equal to '0'
       if (!$class['minheight'] && !empty($class['maxheight'])) {
         $class['minheight'] = '0';
       }
@@ -100,7 +98,7 @@ function equalheights_admin_submit($form, &$form_state) {
   drupal_set_message(t('Settings have been set.'));
 }
 
-function equalheights_settings_fields($elClass = '', $minheight = '', $maxheight = '', $overflow = 'auto') {
+function equalheights_settings_fields($el_class = '', $minheight = '', $maxheight = '', $overflow = 'auto') {
   $form['#tree'] = TRUE;
   $form['delete'] = array(
     '#type' => 'checkbox',
@@ -111,11 +109,11 @@ function equalheights_settings_fields($elClass = '', $minheight = '', $maxheight
   );
   $form['elClass'] = array(
     '#type' => 'textfield',
-    '#default_value' => $elClass,
+    '#default_value' => $el_class,
     '#size' => 32,
     '#maxlength' => 255,
     '#attributes' => array(
-      '#title' => t('The name of the class to be used, no \'.\' is needed'),
+      '#title' => t("The name of the class to be used, no '.' is needed"),
     ),
   );
   $form['minheight'] = array(
@@ -165,7 +163,7 @@ function theme_equalheights_classes($variables) {
     );
     // Add any attributes on the element to the row, such as the ahah class.
     if (array_key_exists('#attributes', $form[$key])) {
-       $rows[$key] = array_merge($rows[$key], $form[$key]['#attributes']);
+      $rows[$key] = array_merge($rows[$key], $form[$key]['#attributes']);
      }
  }
   $header = array(
