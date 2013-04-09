@@ -90,14 +90,12 @@ function equalheights_libraries_info() {
 /**
  * Implements hook_init().
  */
-function equalheights_init() {
-  // Adding jquery.equalheights.js as a library.
-  drupal_add_library('equalheights', 'jquery-equalheights', TRUE);
+function equalheights_page_build() {
   $equalheightsclasses = variable_get('equalheights_css_classes', array());
   if (!empty($equalheightsclasses)) {
+    // Adding jquery.equalheights.js as a library.
     drupal_add_library('equalheights', 'jquery-equalheights', TRUE);
     equalheights_load_libraries($equalheightsclasses);
-
   }
 }
 
