@@ -150,7 +150,7 @@ function equalheights_load_libraries($equalheightsclasses) {
     }
   }
   else {
-    $message = t('The imagesloaded library was not found! Please following the instructions from the README.tx to get the plugin.');
+    $message = t('The imagesloaded library was not found! Please following the instructions from the README.txt to get the plugin.');
     drupal_set_message($message, $type = 'error');
   }
 }
