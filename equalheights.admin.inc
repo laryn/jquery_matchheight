@@ -108,9 +108,10 @@ function equalheights_settings_fields($el_class = '', $minheight = '', $maxheigh
     ),
   );
   $form['selector'] = array(
-    '#type' => 'textfield',
+    '#type' => 'textarea',
     '#default_value' => $el_class,
-    '#size' => 32,
+    '#rows' => 3,
+    '#cols' => 30,
     '#maxlength' => 255,
     '#attributes' => array(
       'title' => t("The selector of the elements that need equal height"),
