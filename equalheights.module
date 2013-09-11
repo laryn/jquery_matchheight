@@ -21,7 +21,8 @@ function equalheights_help($path = '', $arg = NULL) {
     case 'admin/help#equalheights':
     case 'admin/config/development/equalheights':
       $output = '<p>' . t("Implements a jQuery plugin that makes the height of the elements equal.") . '</p>';
-      $output .= t("Add CSS classes that you need to be of equal height, without a leading period ('.') . <br />");
+      $output .= t("Add elements or CSS classes that you need to be of equal height (with a leading period ('.') ) . <br />");
+      $output .= t('Note: you can combine multiple selectors, i.e. "header, .wrapper".');
       $output .= t('You can optionally set minimum and maximum height, overflow value.&nbsp;');
       $output .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/'));
       break;

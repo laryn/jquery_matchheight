@@ -29,7 +29,7 @@ function equalheights_admin($form, $form_state) {
   for ($index = 0; $index < $rows_count; $index++) {
     if (isset($classes[$index])) {
       $setting = $classes[$index];
-      $form['equalheights_classes'][$index] = equalheights_settings_fields($setting['elClass'], $setting['minheight'], $setting['maxheight'], $setting['overflow']);
+      $form['equalheights_classes'][$index] = equalheights_settings_fields($setting['selector'], $setting['minheight'], $setting['maxheight'], $setting['overflow']);
     }
     else {
       $form['equalheights_classes'][$index] = equalheights_settings_fields();
@@ -65,7 +65,7 @@ function equalheights_admin($form, $form_state) {
 function equalheights_admin_validate($form, &$form_state) {
 
   foreach ($form_state['values']['equalheights_classes'] as $i => $class) {
-    if (!empty($class['elClass'])) {
+    if (!empty($class['selector'])) {
       if (!empty($class['minheight']) && !is_numeric($class['minheight'])) {
         form_set_error('', t('Min height must be a number.'));
       }
@@ -80,13 +80,13 @@ function equalheights_admin_submit($form, &$form_state) {
   $settings = array();
 
   foreach ($form_state['values']['equalheights_classes'] as $i => $class) {
-    if (!empty($class['elClass']) && $class['delete'] == 0) {
+    if (!empty($class['selector']) && $class['delete'] == 0) {
       // If only maxheight is set, make minheight equal to '0'
       if (!$class['minheight'] && !empty($class['maxheight'])) {
         $class['minheight'] = '0';
       }
       $settings[] = array(
-        'elClass' => trim($class['elClass'], '.'),
+        'selector' => trim($class['selector']),
         'minheight' => trim($class['minheight']),
         'maxheight' => trim($class['maxheight']),
         'overflow' => $class['overflow'],
@@ -107,13 +107,13 @@ function equalheights_settings_fields($el_class = '', $minheight = '', $maxheigh
       'title' => t('Delete the class'),
     ),
   );
-  $form['elClass'] = array(
+  $form['selector'] = array(
     '#type' => 'textfield',
     '#default_value' => $el_class,
     '#size' => 32,
     '#maxlength' => 255,
     '#attributes' => array(
-      '#title' => t("The name of the class to be used, no '.' is needed"),
+      'title' => t("The selector of the elements that need equal height"),
     ),
   );
   $form['minheight'] = array(
@@ -121,7 +121,7 @@ function equalheights_settings_fields($el_class = '', $minheight = '', $maxheigh
     '#default_value' => $minheight,
     '#size' => 4,
     '#attributes' => array(
-      '#title' => t('Minimum height of the class, in pixels'),
+      'title' => t('Minimum height of the class, in pixels'),
     ),
   );
   $form['maxheight'] = array(
@@ -129,7 +129,7 @@ function equalheights_settings_fields($el_class = '', $minheight = '', $maxheigh
     '#default_value' => $maxheight,
     '#size' => 4,
     '#attributes' => array(
-      '#title' => t('Maximum height of the class, in pixels'),
+      'title' => t('Maximum height of the class, in pixels'),
     ),
   );
   $form['overflow'] = array(
@@ -141,7 +141,7 @@ function equalheights_settings_fields($el_class = '', $minheight = '', $maxheigh
       'visible' => t('visible'),
     ),
     '#attributes' => array(
-      '#title' => t('Overflow value if the content taller than the max height'),
+      'title' => t('Overflow value if the content taller than the max height'),
     ),
   );
   return $form;
@@ -154,7 +154,7 @@ function theme_equalheights_classes($variables) {
     // Build the table row.
     $rows[$key] = array(
       'data' => array(
-        array('data' => drupal_render($form[$key]['elClass']), 'class' => 'equalheights-class'),
+        array('data' => drupal_render($form[$key]['selector']), 'class' => 'equalheights-class'),
         array('data' => drupal_render($form[$key]['minheight']), 'class' => 'equalheights-minheight'),
         array('data' => drupal_render($form[$key]['maxheight']), 'class' => 'equalheights-mzxheight'),
         array('data' => drupal_render($form[$key]['overflow']), 'class' => 'equalheights-overflow'),
