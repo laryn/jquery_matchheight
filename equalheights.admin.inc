@@ -86,7 +86,7 @@ function equalheights_admin_submit($form, &$form_state) {
         $class['minheight'] = '0';
       }
       $settings[] = array(
-        'selector' => trim($class['selector']),
+        'selector' => _equalheights_selector_fold($class['selector']),
         'minheight' => trim($class['minheight']),
         'maxheight' => trim($class['maxheight']),
         'overflow' => $class['overflow'],
@@ -98,7 +98,29 @@ function equalheights_admin_submit($form, &$form_state) {
   drupal_set_message(t('Settings have been set.'));
 }
 
-function equalheights_settings_fields($el_class = '', $minheight = '', $maxheight = '', $overflow = 'auto') {
+/**
+ * Remove newlines from selector.
+ *
+ * New lines are not allowed in the jQuery selector. Queries like:
+ *   jQuery(".region\n .header");
+ * fail.
+ */
+function _equalheights_selector_fold($selector) {
+  return trim(trim(preg_replace(array("/\s+/", "/\n/", "/\r/"), ' ', $selector)), ',');
+}
+
+/**
+ * Make a better user readable version of the selector.
+ *
+ * Replace comma by comma followed by a new line.
+ * Spaces before and after a comma are removed.
+ */
+function _equalheights_selector_unfold($selector) {
+  $select = _equalheights_selector_fold($selector);
+  return preg_replace("/\s*\,\s*/", ",\n", $selector);
+}
+
+function equalheights_settings_fields($selector = '', $minheight = '', $maxheight = '', $overflow = 'auto') {
   $form['#tree'] = TRUE;
   $form['delete'] = array(
     '#type' => 'checkbox',
@@ -109,13 +131,14 @@ function equalheights_settings_fields($el_class = '', $minheight = '', $maxheigh
   );
   $form['selector'] = array(
     '#type' => 'textarea',
-    '#default_value' => $el_class,
+    '#default_value' => _equalheights_selector_unfold($selector),
     '#rows' => 3,
     '#cols' => 30,
-    '#maxlength' => 255,
     '#attributes' => array(
       'title' => t("The selector of the elements that need equal height"),
     ),
+    '#description' => t("You may enter several compound selectors seperated by a comma. <br>Just follow the same pattern you would use in your css files.<br>
+                         New lines will be injected before commas.<br>"),
   );
   $form['minheight'] = array(
     '#type' => 'textfield',
@@ -168,7 +191,7 @@ function theme_equalheights_classes($variables) {
      }
  }
   $header = array(
-    array('data' => t('Class of the element'), 'title' => t('The class of the element to be used with equalheights.')),
+    array('data' => t('Class or tag of the element'), 'title' => t('The class of the element to be used with equalheights.')),
     array('data' => t('Min height (optional)'), 'title' => t('Minimum height of the element')),
     array('data' => t('Max height (optional)'), 'title' => t('Maximum height of the element')),
     array('data' => t('Overflow'), 'title' => t('Overflow value')),
