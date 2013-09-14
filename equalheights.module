@@ -56,7 +56,7 @@ function equalheights_libraries_info() {
     'name' => 'jquery imagesloaded',
     'vendor url' => 'https://github.com/desandro/imagesloaded',
     'download url' => 'https://github.com/desandro/imagesloaded',
-    // 2.1.1
+    // 2.1.12
     'version arguments' => array(
       'file' => 'jquery.imagesloaded.js',
       'pattern' => '@plugin v([0-9\.a-z]+)@',

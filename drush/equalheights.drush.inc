@@ -7,8 +7,8 @@
  /**
   * The URI to the imagesloaded.js library.
   */
-define('IL_MIN_DOWNLOAD_URI', 'https://raw.github.com/desandro/imagesloaded/master/jquery.imagesloaded.min.js');
-define('IL_SOURCE_DOWNLOAD_URI', 'https://raw.github.com/desandro/imagesloaded/master/jquery.imagesloaded.js');
+define('IL_MIN_DOWNLOAD_URI', 'https://raw.github.com/desandro/imagesloaded/v2.1.2/jquery.imagesloaded.min.js');
+define('IL_SOURCE_DOWNLOAD_URI', 'https://raw.github.com/desandro/imagesloaded/v2.1.2/jquery.imagesloaded.js');
 /*
  * Implements hook_drush_command().
  *

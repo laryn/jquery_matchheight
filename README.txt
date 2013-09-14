@@ -16,7 +16,7 @@ on your machine, it's going to download required libraries. Otherwise, procede w
 
 Installing required libraries manually.
 -------------------------------------
-Before installing equalheights module, download imagesloaded plugin from https://github.com/desandro/imagesloaded.
+Before installing equalheights module, download imagesloaded plugin from https://github.com/desandro/imagesloaded/releases/tag/v2.1.2.
 You need two files: jquery.imagesloaded.js and jquery.imagesloaded.min.js. They should be copied to sites/all/libraries/imagesloaded.
 You can also use git to clone the repository from the github.
 
