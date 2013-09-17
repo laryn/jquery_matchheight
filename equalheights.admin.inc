@@ -133,12 +133,12 @@ function equalheights_settings_fields($selector = '', $minheight = '', $maxheigh
     '#type' => 'textarea',
     '#default_value' => _equalheights_selector_unfold($selector),
     '#rows' => 3,
-    '#cols' => 30,
+    '#cols' => 20,
     '#attributes' => array(
       'title' => t("The selector of the elements that need equal height"),
     ),
-    '#description' => t("You may enter several compound selectors seperated by a comma. <br>Just follow the same pattern you would use in your css files.<br>
-                         New lines will be injected before commas.<br>"),
+    '#description' => t("You may enter one or several compound selectors seperated by a comma.<br>
+                         New lines will be injected before commas."),
   );
   $form['minheight'] = array(
     '#type' => 'textfield',

@@ -89,7 +89,7 @@ function equalheights_libraries_info() {
 }
 
 /**
- * Implements hook_init().
+ * Implements hook_page_build().
  */
 function equalheights_page_build() {
   $equalheightsclasses = variable_get('equalheights_css_classes', array());
