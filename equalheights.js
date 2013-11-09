@@ -7,9 +7,10 @@
     attach: function (context, settings) {
       var eqClass = Drupal.settings.equalHeightsModule.classes;
       if (eqClass) {
+        equalHeightsTrigger();
         $(window).bind('resize', function () {
           equalHeightsTrigger();
-        }).trigger('resize');
+        });
       }
       function equalHeightsTrigger() {
         $.each(eqClass, function(eqClass, setting) {
