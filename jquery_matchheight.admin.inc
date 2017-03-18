@@ -9,16 +9,16 @@
  * Administration settings page.
  */
 
-function equalheights_admin($form, $form_state) {
+function jquery_matchheight_admin($form, $form_state) {
   $form = array();
 
-  $form['equalheights_classes'] = array(
+  $form['jquery_matchheight_classes'] = array(
     '#tree' => TRUE,
-    '#theme' => 'equalheights_classes',
+    '#theme' => 'jquery_matchheight_classes',
   );
 
   // See how many rows there should be.
-  $classes = variable_get("equalheights_css_classes", array());
+  $classes = variable_get("jquery_matchheight_css_classes", array());
   $rows_count = 0;
   if (isset($form_state['rows_count'])) {
     $rows_count = $form_state['rows_count'];
@@ -29,20 +29,20 @@ function equalheights_admin($form, $form_state) {
   for ($index = 0; $index < $rows_count; $index++) {
     if (isset($classes[$index])) {
       $setting = $classes[$index];
-      $form['equalheights_classes'][$index] = equalheights_settings_fields($setting);
+      $form['jquery_matchheight_classes'][$index] = jquery_matchheight_settings_fields($setting);
     }
     else {
-      $form['equalheights_classes'][$index] = equalheights_settings_fields();
+      $form['jquery_matchheight_classes'][$index] = jquery_matchheight_settings_fields();
     }
   }
   $form['more'] = array(
     '#type' => 'submit',
     '#value' => t('Add row'),
     '#description' => t('Add a new row'),
-    '#submit' => array('equalheights_more_submit'),
+    '#submit' => array('jquery_matchheight_more_submit'),
     '#ajax' => array(
-      'callback' => 'equalheights_ajax',
-      'wrapper' => 'equalheights_wrapper',
+      'callback' => 'jquery_matchheight_ajax',
+      'wrapper' => 'jquery_matchheight_wrapper',
       'method' => 'replace',
       'effect' => 'none',
     ),
@@ -51,13 +51,13 @@ function equalheights_admin($form, $form_state) {
   $form['imagesloaded'] = array(
     '#type' => 'checkbox',
     '#description' => t('Load the minified version of the imagesloaded plugin for performance.'),
-    '#default_value' => variable_get('equalheights_imagesloaded_min', TRUE),
+    '#default_value' => variable_get('jquery_matchheight_imagesloaded_min', TRUE),
     '#title' => t('Enable midisablenified imagesloaded plugin'),
   );
   $form['imagesloaded_ie8'] = array(
     '#type' => 'checkbox',
     '#description' => t('Disable imagesloaded plugin for <=Internet Explorer 8 (has been known to cause issues).'),
-    '#default_value' => variable_get('equalheights_imagesloaded_iele8', TRUE),
+    '#default_value' => variable_get('jquery_matchheight_imagesloaded_iele8', TRUE),
     '#title' => t('Disable imagesloaded plugin for IE8 and earlier (recommended)'),
   );
   $form['save'] = array(
@@ -68,9 +68,9 @@ function equalheights_admin($form, $form_state) {
 
   return $form;
 }
-function equalheights_admin_validate($form, &$form_state) {
+function jquery_matchheight_admin_validate($form, &$form_state) {
 
-  foreach ($form_state['values']['equalheights_classes'] as $i => $class) {
+  foreach ($form_state['values']['jquery_matchheight_classes'] as $i => $class) {
     if (!empty($class['selector'])) {
       if (!empty($class['minheight']) && !is_numeric($class['minheight'])) {
         form_set_error('', t('Min height must be a number.'));
@@ -82,17 +82,17 @@ function equalheights_admin_validate($form, &$form_state) {
   }
 }
 
-function equalheights_admin_submit($form, &$form_state) {
+function jquery_matchheight_admin_submit($form, &$form_state) {
   $settings = array();
 
-  foreach ($form_state['values']['equalheights_classes'] as $i => $class) {
+  foreach ($form_state['values']['jquery_matchheight_classes'] as $i => $class) {
     if (!empty($class['selector']) && $class['delete'] == 0) {
       // If only maxheight is set, make minheight equal to '0'
       if (!$class['minheight'] && !empty($class['maxheight'])) {
         $class['minheight'] = '0';
       }
       $settings[] = array(
-        'selector' => _equalheights_selector_fold($class['selector']),
+        'selector' => _jquery_matchheight_selector_fold($class['selector']),
         'mediaquery' => trim($class['mediaquery']),
         'minheight' => trim($class['minheight']),
         'maxheight' => trim($class['maxheight']),
@@ -100,10 +100,10 @@ function equalheights_admin_submit($form, &$form_state) {
       );
     }
   }
-  variable_set('equalheights_css_classes', $settings);
-  variable_set('equalheights_imagesloaded_min', $form_state['values']['imagesloaded']);
-  variable_set('equalheights_imagesloaded_iele8', $form_state['values']['imagesloaded_ie8']);
-  drupal_set_message(t('Settings have been set.'));
+  variable_set('jquery_matchheight_css_classes', $settings);
+  variable_set('jquery_matchheight_imagesloaded_min', $form_state['values']['imagesloaded']);
+  variable_set('jquery_matchheight_imagesloaded_iele8', $form_state['values']['imagesloaded_ie8']);
+  backdrop_set_message(t('Settings have been set.'));
 }
 
 /**
@@ -113,7 +113,7 @@ function equalheights_admin_submit($form, &$form_state) {
  *   jQuery(".region\n .header");
  * fail.
  */
-function _equalheights_selector_fold($selector) {
+function _jquery_matchheight_selector_fold($selector) {
   return trim(trim(preg_replace(array("/\s+/", "/\n/", "/\r/"), ' ', $selector)), ',');
 }
 
@@ -123,12 +123,12 @@ function _equalheights_selector_fold($selector) {
  * Replace comma by comma followed by a new line.
  * Spaces before and after a comma are removed.
  */
-function _equalheights_selector_unfold($selector) {
-  $select = _equalheights_selector_fold($selector);
+function _jquery_matchheight_selector_unfold($selector) {
+  $select = _jquery_matchheight_selector_fold($selector);
   return preg_replace("/\s*\,\s*/", ",\n", $selector);
 }
 
-function equalheights_settings_fields($settings = array()) {
+function jquery_matchheight_settings_fields($settings = array()) {
   // Add defaults
   $settings += array(
       'selector' => '',
@@ -153,7 +153,7 @@ function equalheights_settings_fields($settings = array()) {
   );
   $form['selector'] = array(
     '#type' => 'textarea',
-    '#default_value' => _equalheights_selector_unfold($selector),
+    '#default_value' => _jquery_matchheight_selector_unfold($selector),
     '#rows' => 3,
     '#cols' => 20,
     '#attributes' => array(
@@ -204,19 +204,19 @@ function equalheights_settings_fields($settings = array()) {
   return $form;
 }
 
-function theme_equalheights_classes($variables) {
+function theme_jquery_matchheight_classes($variables) {
   $form = $variables['form'];
   $rows = array();
   foreach (element_children($form) as $key) {
     // Build the table row.
     $rows[$key] = array(
       'data' => array(
-        array('data' => drupal_render($form[$key]['selector']), 'class' => 'equalheights-class'),
-        array('data' => drupal_render($form[$key]['mediaquery']), 'class' => 'equalheights-class'),
-        array('data' => drupal_render($form[$key]['minheight']), 'class' => 'equalheights-minheight'),
-        array('data' => drupal_render($form[$key]['maxheight']), 'class' => 'equalheights-mzxheight'),
-        array('data' => drupal_render($form[$key]['overflow']), 'class' => 'equalheights-overflow'),
-        array('data' => drupal_render($form[$key]['delete']), 'class' => 'equalheights-delete'),
+        array('data' => backdrop_render($form[$key]['selector']), 'class' => 'matchheight-class'),
+        array('data' => backdrop_render($form[$key]['mediaquery']), 'class' => 'matchheight-class'),
+        array('data' => backdrop_render($form[$key]['minheight']), 'class' => 'matchheight-minheight'),
+        array('data' => backdrop_render($form[$key]['maxheight']), 'class' => 'matchheight-mzxheight'),
+        array('data' => backdrop_render($form[$key]['overflow']), 'class' => 'matchheight-overflow'),
+        array('data' => backdrop_render($form[$key]['delete']), 'class' => 'matchheight-delete'),
       ),
     );
     // Add any attributes on the element to the row, such as the ahah class.
@@ -225,7 +225,7 @@ function theme_equalheights_classes($variables) {
      }
  }
   $header = array(
-    array('data' => t('Class or tag of the element'), 'title' => t('The class of the element to be used with equalheights.')),
+    array('data' => t('Class or tag of the element'), 'title' => t('The class of the element to be used with jQuery matchHeight.')),
     array('data' => t('Media query to filter on'), 'title' => t('The media query.')),
     array('data' => t('Min height (optional)'), 'title' => t('Minimum height of the element')),
     array('data' => t('Max height (optional)'), 'title' => t('Maximum height of the element')),
@@ -236,17 +236,17 @@ function theme_equalheights_classes($variables) {
   $output = theme('table', array(
    'header' => $header,
     'rows' => $rows,
-    'attributes' => array('id' => 'equalheights_wrapper'),
+    'attributes' => array('id' => 'jquery_matchheight_wrapper'),
   ));
-  $output .= drupal_render_children($form);
+  $output .= backdrop_render_children($form);
   return $output;
 }
 
-function equalheights_ajax($form, &$form_state) {
-  return $form['equalheights_classes'];
+function jquery_matchheight_ajax($form, &$form_state) {
+  return $form['jquery_matchheight_classes'];
 }
 
-function equalheights_more_submit($form, &$form_state) {
-  $form_state['rows_count'] = count($form_state['values']['equalheights_classes']) + 1;
+function jquery_matchheight_more_submit($form, &$form_state) {
+  $form_state['rows_count'] = count($form_state['values']['jquery_matchheight_classes']) + 1;
   $form_state['rebuild'] = TRUE;
 }

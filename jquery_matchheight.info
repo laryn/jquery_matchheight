@@ -1,0 +1,7 @@
+name = jQuery matchHeight
+description = "Adds a jQuery plugin to equalize heights for sets of elements."
+backdrop = 1.x
+configure = admin/config/development/jquery_matchheight
+
+scripts[] = libraries/jquery-match-height/jquery.matchHeight.js
+scripts[] = js/jquery_matchheight.js

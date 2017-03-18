@@ -7,24 +7,21 @@
  * user specified elements with the same class.
  * By default, the height of the tallest element is used, but minimum and
  * maximum height can also be set.
- * The format for the admin settings should be 'classname:minheight,maxheight'.
- * To find out more about the plugin, go to
- * http://www.cssnewbie.com/equalheights-jquery-plugin/
  */
 
 /**
  * Implements hook_help().
  */
-function equalheights_help($path = '', $arg = NULL) {
+function jquery_matchheight_help($path = '', $arg = NULL) {
   $output = '';
   switch ($path) {
-    case 'admin/help#equalheights':
-    case 'admin/config/development/equalheights':
+    case 'admin/help#jquery_matchheight':
+    case 'admin/config/development/jquery_matchheight':
       $output = '<p>' . t("Implements a jQuery plugin that makes the height of the elements equal.") . '</p>';
       $output .= t("Add elements or CSS classes that you need to be of equal height (with a leading period ('.') ) . <br />");
       $output .= t('Note: you can combine multiple selectors, i.e. "header, .wrapper".');
       $output .= t('You can optionally set minimum and maximum height, overflow value.&nbsp;');
-      $output .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/'));
+      $output .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://brm.io/jquery-match-height-demo'));
       break;
   }
   return $output;
@@ -35,23 +32,31 @@ function equalheights_help($path = '', $arg = NULL) {
  *
  * For the file packaged with the module.
  */
-function equalheights_library() {
-  $libraries['jquery-equalheights'] = array(
-    'title' => "Equalheights jQuery",
-    'website' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/',
+
+ /* Prepare for deletion when libraries dependency is removed 
+
+function jquery_matchheight_library() {
+  $libraries['jquery-jquery_matchheight'] = array(
+    'title' => "jQuery matchHeight",
+    'website' => 'http://www.cssnewbie.com/jquery_matchheight-jquery-plugin/',
     'version' => '1.0',
     'js' => array(
-      drupal_get_path('module', 'equalheights') . '/jquery.equalheights.js' => array(),
+      backdrop_get_path('module', 'jquery_matchheight') . '/jquery.jquery_matchheight.js' => array(),
     ),
   );
   return $libraries;
 }
+*/
+
 /**
  * Implements hook_libraries_info().
  *
  * For defining external libraries.
  */
-function equalheights_libraries_info() {
+ 
+ /* Prepare for deletion when libraries dependency is removed 
+   
+function jquery_matchheight_libraries_info() {
   $libraries['imagesloaded'] = array(
     'name' => 'jquery imagesloaded',
     'vendor url' => 'https://github.com/desandro/imagesloaded',
@@ -87,35 +92,24 @@ function equalheights_libraries_info() {
   );
   return $libraries;
 }
-
-/**
- * Implements hook_page_build().
- */
-function equalheights_page_build() {
-  $equalheightsclasses = variable_get('equalheights_css_classes', array());
-  if (!empty($equalheightsclasses)) {
-    // Adding jquery.equalheights.js as a library.
-    drupal_add_library('equalheights', 'jquery-equalheights', TRUE);
-    equalheights_load_libraries($equalheightsclasses);
-  }
-}
+*/
 
 /**
  * Implements hook_menu().
  */
-function equalheights_menu() {
+function jquery_matchheight_menu() {
   $description = t('Add CSS classes that you need to be of equal height, without a leading period (\'.\').<br />');
   $description .= t('You can optionally set minimum and maximum height, overflow value.&nbsp;');
-  $description .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/equalheights-jquery-plugin/'));
+  $description .= t('(<a href="@about">Read more about the plugin.</a>) ', array('@about' => 'http://www.cssnewbie.com/jquery_matchheight-jquery-plugin/'));
 
   $items = array();
-  $items['admin/config/development/equalheights'] = array(
-    'title' => 'Equal Heights',
+  $items['admin/config/development/jquery_matchheight'] = array(
+    'title' => 'jQuery matchHeight',
     'description' => 'Configure elements with equal heights.',
     'access arguments' => array('administer site configuration'),
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('equalheights_admin'),
-    'file' => 'equalheights.admin.inc',
+    'page callback' => 'backdrop_get_form',
+    'page arguments' => array('jquery_matchheight_admin'),
+    'file' => 'jquery_matchheight.admin.inc',
   );
   return $items;
 }
@@ -123,22 +117,24 @@ function equalheights_menu() {
 /*
  * Implements hook_theme().
  */
-function equalheights_theme() {
+function jquery_matchheight_theme() {
   return array(
-    'equalheights_classes' => array(
+    'jquery_matchheight_classes' => array(
       'render element' => 'form',
-      'file' => 'equalheights.admin.inc',
+      'file' => 'jquery_matchheight.admin.inc',
     ),
   );
 }
 
-function equalheights_load_libraries($equalheightsclasses) {
+ /* Prepare for deletion when libraries dependency is removed 
+
+function jquery_matchheight_load_libraries($jquery_matchheightclasses) {
   // Determine which variant of the script to load depending
   // on the config settings.
-  $imagesloaded_ie8 = variable_get('equalheights_imagesloaded_iele8');
-  $settings = array('classes' => $equalheightsclasses,
+  $imagesloaded_ie8 = variable_get('jquery_matchheight_imagesloaded_iele8');
+  $settings = array('classes' => $jquery_matchheightclasses,
                     'imagesloaded_ie8' => $imagesloaded_ie8);
-  if (variable_get('equalheights_imagesloaded_min')) {
+  if (variable_get('jquery_matchheight_imagesloaded_min')) {
     $variant = 'minified';
   }
   else {
@@ -150,12 +146,14 @@ function equalheights_load_libraries($equalheightsclasses) {
     // Only load settings once.
     static $loaded = FALSE;
     if (!$loaded) {
-      drupal_add_js(array('equalHeightsModule' => $settings), 'setting');
+      backdrop_add_js(array('equalHeightsModule' => $settings), 'setting');
       $loaded = TRUE;
     }
   }
   else {
     $message = t('The imagesloaded library was not found! Please following the instructions from the README.txt to get the plugin.');
-    drupal_set_message($message, $type = 'error');
+    backdrop_set_message($message, $type = 'error');
   }
 }
+
+*/
